@@ -161,6 +161,25 @@ npm run build
 
 4. Configura las variables de entorno en el panel de Hostinger si es necesario
 
+#### ⚠️ Importante: Evitar Errores de Compilación en Hostinger
+
+Si Hostinger intenta compilar el proyecto automáticamente y falla:
+
+**Opción A: Usar solo archivos estáticos (Recomendado)**
+1. Sube **SOLO** el contenido de la carpeta `dist/` (no el proyecto completo)
+2. No subas `package.json`, `node_modules`, ni archivos de código fuente
+3. Hostinger servirá los archivos HTML/CSS/JS directamente
+
+**Opción B: Desactivar Git Deployment en Hostinger**
+1. Ve al panel de Hostinger → **Git**
+2. Desconecta el repositorio o desactiva el auto-deployment
+3. Usa FTP para subir solo la carpeta `dist/`
+
+**Opción C: Configurar correctamente el directorio**
+1. En Hostinger, configura el **Document Root** para que apunte a donde subiste los archivos
+2. Generalmente debe ser `public_html/` o `public_html/dist/`
+3. Asegúrate de que el archivo `index.html` esté en la raíz del Document Root
+
 ### Despliegue en Netlify
 
 1. Conecta tu repositorio a Netlify

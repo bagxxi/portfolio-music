@@ -1,0 +1,10 @@
+# Configuración de Build para Hostinger
+# Este archivo previene que Hostinger intente compilar el proyecto
+
+[build]
+  # No ejecutar comandos de build
+  command = ""
+  
+[build.environment]
+  # No se requiere Node.js en el servidor
+  NODE_VERSION = ""

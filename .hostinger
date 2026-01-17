@@ -1,0 +1,10 @@
+# Hostinger Configuration
+# Este archivo le indica a Hostinger que NO debe compilar el proyecto
+# El proyecto ya está pre-compilado por GitHub Actions
+
+# Desactivar auto-build
+BUILD_COMMAND=""
+INSTALL_COMMAND=""
+
+# El proyecto es estático, no requiere Node.js en runtime
+NODE_VERSION=""

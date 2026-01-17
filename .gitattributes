@@ -1,0 +1,22 @@
+# Git Attributes
+# Asegurar que los archivos de configuración se manejen correctamente
+
+# Normalizar line endings
+* text=auto
+
+# Archivos específicos con LF
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Archivos binarios
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
