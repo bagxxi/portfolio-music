@@ -1,0 +1,135 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { personalInfo, skillCategories } from "@/lib/portfolio";
+---
+
+<Layout title="Sobre mí | GaloDev Portfolio">
+  <div class="relative px-8 py-12 max-w-4xl mx-auto">
+    <!-- Page header -->
+    <header class="mb-12">
+      <span class="metadata block mb-4">// about_me.md</span>
+      <h1 class="font-display text-5xl font-bold text-text-bright mb-4">
+        Sobre <span class="text-accent-magenta">mí</span>
+      </h1>
+    </header>
+
+    <!-- Profile Card -->
+    <section class="glass-card rounded-xl p-8 mb-12">
+      <div class="flex flex-col md:flex-row gap-8 items-start">
+        <!-- Avatar -->
+        <img
+          src={personalInfo.avatar}
+          alt={personalInfo.displayName}
+          class="w-32 h-32 rounded-full object-cover shrink-0 border-2 border-accent-cyan/30 hover:border-accent-magenta/50 transition-all"
+        />
+
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-3">
+            <h2 class="font-display text-3xl font-bold text-text-bright">
+              {personalInfo.displayName}
+            </h2>
+            <span class="badge text-accent-green">{personalInfo.status}</span>
+          </div>
+
+          <p class="text-xl text-accent-cyan font-display mb-4">
+            {personalInfo.title}
+          </p>
+
+          <p class="text-text leading-relaxed mb-6">
+            {personalInfo.bio}
+          </p>
+
+          <!-- Metadata grid -->
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            <div class="flex items-center gap-2">
+              <span class="text-accent-cyan">📍</span>
+              <span class="text-text-muted">Ubicación:</span>
+              <span class="text-text">{personalInfo.location}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-accent-cyan">🕐</span>
+              <span class="text-text-muted">Zona horaria:</span>
+              <span class="text-text">{personalInfo.timezone}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-accent-cyan">✉️</span>
+              <span class="text-text-muted">Email:</span>
+              <a
+                href={`mailto:${personalInfo.email}`}
+                class="text-accent-magenta hover:underline"
+              >
+                {personalInfo.email}
+              </a>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-accent-cyan">💻</span>
+              <span class="text-text-muted">GitHub:</span>
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener"
+                class="text-accent-magenta hover:underline"
+              >
+                @bagxxi
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="mb-12">
+      <h3
+        class="font-display text-2xl font-bold text-text-bright mb-6 flex items-center gap-2"
+      >
+        <span class="text-accent-cyan">$</span> stats --quick
+      </h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div
+          class="glass-card rounded-lg p-4 text-center hover:border-accent-cyan/50 transition-colors"
+        >
+          <div class="text-3xl font-display font-bold text-accent-cyan mb-1">
+            21+
+          </div>
+          <div class="text-sm text-text-muted">Repositorios</div>
+        </div>
+        <div
+          class="glass-card rounded-lg p-4 text-center hover:border-accent-magenta/50 transition-colors"
+        >
+          <div class="text-3xl font-display font-bold text-accent-magenta mb-1">
+            {skillCategories.flatMap((c) => c.skills).length}+
+          </div>
+          <div class="text-sm text-text-muted">Tecnologías</div>
+        </div>
+        <div
+          class="glass-card rounded-lg p-4 text-center hover:border-accent-green/50 transition-colors"
+        >
+          <div class="text-3xl font-display font-bold text-accent-green mb-1">
+            Pro
+          </div>
+          <div class="text-sm text-text-muted">GitHub Status</div>
+        </div>
+        <div
+          class="glass-card rounded-lg p-4 text-center hover:border-accent-orange/50 transition-colors"
+        >
+          <div class="text-3xl font-display font-bold text-accent-orange mb-1">
+            2+
+          </div>
+          <div class="text-sm text-text-muted">Años Dev</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Background decoration -->
+    <div
+      class="absolute top-0 right-0 w-96 h-96 bg-accent-violet/5 rounded-full blur-3xl -z-10"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 left-0 w-64 h-64 bg-accent-cyan/5 rounded-full blur-3xl -z-10"
+    >
+    </div>
+  </div>
+</Layout>

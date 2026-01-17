@@ -1,0 +1,30 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { JamendoPlaylist } from "@/components/JamendoPlaylist";
+
+export function getStaticPaths() {
+  return [
+    { params: { genre: 'metal' }, props: { title: 'Metal', description: 'Los mejores tracks de metal de Jamendo', color: '#f7768e' } },
+    { params: { genre: 'rock' }, props: { title: 'Rock', description: 'Rock clásico y moderno de artistas independientes', color: '#ff9e64' } },
+    { params: { genre: 'hiphop' }, props: { title: 'Hip-Hop', description: 'Beats y rimas de la escena underground', color: '#9ece6a' } },
+    { params: { genre: 'electronic' }, props: { title: 'Electrónica', description: 'Música electrónica y EDM', color: '#7dcfff' } },
+    { params: { genre: 'jazz' }, props: { title: 'Jazz', description: 'Jazz contemporáneo y clásico', color: '#bb9af7' } },
+    { params: { genre: 'classical' }, props: { title: 'Clásica', description: 'Música clásica y orquestal', color: '#9d7cd8' } },
+  ];
+}
+
+const { genre } = Astro.params;
+const { title, description, color } = Astro.props;
+---
+
+<Layout title={`${title} | GaloDev Portfolio`}>
+  <div class="relative p-6 min-h-full" style={`background: linear-gradient(180deg, ${color}20 0%, transparent 30%)`}>
+    <JamendoPlaylist 
+      client:load 
+      tag={genre} 
+      title={title} 
+      description={description}
+      accentColor={color}
+    />
+  </div>
+</Layout>

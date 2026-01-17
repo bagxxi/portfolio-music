@@ -1,0 +1,164 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { projects } from "@/lib/portfolio";
+---
+
+<Layout title="Proyectos | GaloDev Portfolio">
+  <div class="relative px-8 py-12">
+    <!-- Page header -->
+    <header class="mb-12 max-w-4xl">
+      <span class="metadata block mb-4">// projects.list()</span>
+      <h1 class="font-display text-5xl font-bold text-text-bright mb-4">
+        <span class="text-accent-cyan">&lt;</span>Proyectos<span
+          class="text-accent-cyan">/&gt;</span
+        >
+      </h1>
+      <p class="text-text-muted text-lg">
+        Una colección de proyectos personales y colaborativos. Cada uno
+        representa un paso en mi camino como desarrollador.
+      </p>
+    </header>
+
+    <!-- Featured Projects -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-accent-green text-xl">★</span>
+        <h2 class="font-display text-2xl font-bold text-text-bright">
+          Destacados
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          projects
+            .filter((p) => p.featured)
+            .map((project) => (
+              <article class="glass-card rounded-xl overflow-hidden group hover:border-accent-cyan/50 transition-all duration-300">
+                <div class="aspect-video w-full overflow-hidden">
+                  <img
+                    src={project.cover}
+                    alt={project.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    onerror="this.src='/placeholder.svg'"
+                  />
+                </div>
+                <div class="p-5">
+                  <div class="flex items-start justify-between mb-3">
+                    <h3 class="font-display text-xl font-bold text-text-bright group-hover:text-accent-cyan transition-colors">
+                      {project.title}
+                    </h3>
+                    <div class="flex gap-2">
+                      {project.demo && (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener"
+                          class="text-accent-green hover:text-accent-cyan transition-colors text-sm"
+                        >
+                          Ver sitio →
+                        </a>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener"
+                          class="text-text-muted hover:text-accent-magenta transition-colors text-sm"
+                        >
+                          GitHub
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <p class="text-text-muted text-sm mb-4 line-clamp-2">
+                    {project.description}
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                    {project.tech.map((tech) => (
+                      <span class="px-2 py-1 text-xs bg-surface-light rounded text-accent-cyan border border-accent-cyan/20">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            ))
+        }
+      </div>
+    </section>
+
+    <!-- All Projects -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-accent-magenta text-xl">◆</span>
+        <h2 class="font-display text-2xl font-bold text-text-bright">
+          Más Proyectos
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {
+          projects
+            .filter((p) => !p.featured)
+            .map((project) => (
+              <article class="glass-card rounded-lg p-4 flex gap-4 group hover:border-accent-cyan/30 transition-all">
+                <img
+                  src={project.cover}
+                  alt={project.title}
+                  class="w-20 h-20 rounded-lg object-cover shrink-0"
+                  onerror="this.src='/placeholder.svg'"
+                />
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between mb-1">
+                    <h3 class="font-display font-semibold text-text-bright group-hover:text-accent-cyan transition-colors truncate">
+                      {project.title}
+                    </h3>
+                    <div class="flex gap-2 shrink-0">
+                      {project.demo && (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener"
+                          class="text-accent-green hover:text-accent-cyan text-xs"
+                        >
+                          Ver →
+                        </a>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener"
+                          class="text-text-muted hover:text-accent-magenta text-xs"
+                        >
+                          GitHub
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <p class="text-text-muted text-xs mb-2 line-clamp-1">
+                    {project.description}
+                  </p>
+                  <div class="flex flex-wrap gap-1">
+                    {project.tech.slice(0, 3).map((tech) => (
+                      <span class="text-xs text-text-muted">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            ))
+        }
+      </div>
+    </section>
+
+    <!-- Background decoration -->
+    <div
+      class="absolute top-20 right-10 w-80 h-80 bg-accent-cyan/5 rounded-full blur-3xl -z-10"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-10 w-64 h-64 bg-accent-magenta/5 rounded-full blur-3xl -z-10"
+    >
+    </div>
+  </div>
+</Layout>

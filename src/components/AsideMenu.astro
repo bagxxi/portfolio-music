@@ -1,38 +1,86 @@
 ---
-import LibraryIcon from "../icons/Library.astro";
-// import PlayIcon from "../icons/Play.astro";
-// import PauseIcon from "../icons/Pause.astro";
-// import TimeIcon from "../icons/Time.astro";
+import SectionIcon from "../icons/SectionIcon.astro";
 import HomeIcon from "../icons/Home.astro";
+import LibraryIcon from "../icons/Library.astro";
 import SearchIcon from "../icons/Search.astro";
 import SideMenuItem from "./SideMenuItem.astro";
-import SideMenuCard from "./SideMenuCard.astro";
 
-import { playlists } from '@/lib'
+// Jamendo genre playlists
+const genrePlaylists = [
+  { id: 'metal', title: 'Metal', emoji: '🎸', color: '#f7768e' },
+  { id: 'rock', title: 'Rock', emoji: '🔥', color: '#ff9e64' },
+  { id: 'hiphop', title: 'Hip-Hop', emoji: '🎤', color: '#9ece6a' },
+  { id: 'electronic', title: 'Electrónica', emoji: '🎧', color: '#7dcfff' },
+  { id: 'jazz', title: 'Jazz', emoji: '🎷', color: '#bb9af7' },
+];
 ---
 
 <nav class="flex flex-col flex-1 gap-2">
-  <div class="bg-zinc-900 rounded-lg p-2">
+  <!-- Portfolio Navigation -->
+  <div class="bg-surface rounded-lg p-2 border border-surface-lighter/20">
     <ul>
       <SideMenuItem href="/">
         <HomeIcon />
         Inicio
       </SideMenuItem>
-      <SideMenuItem href="/">
-        <SearchIcon />
-        Buscar
+      <SideMenuItem href="/about">
+        <SectionIcon type="user" />
+        Sobre mí
+      </SideMenuItem>
+      <SideMenuItem href="/projects">
+        <SectionIcon type="code" />
+        Proyectos
+      </SideMenuItem>
+      <SideMenuItem href="/skills">
+        <SectionIcon type="terminal" />
+        Skills
+      </SideMenuItem>
+      <SideMenuItem href="/contact">
+        <SectionIcon type="mail" />
+        Contacto
       </SideMenuItem>
     </ul>
   </div>
 
-  <div class="bg-zinc-900 rounded-lg p-2 flex-1">
+  <!-- Music Library -->
+  <div class="bg-surface rounded-lg p-2 flex-1 border border-surface-lighter/20 overflow-y-auto">
+    <div class="px-4 py-2 flex items-center gap-2">
+      <SectionIcon type="music" class="text-accent-cyan" />
+      <span class="font-display font-medium text-text-bright">Música</span>
+    </div>
     <ul>
-      <SideMenuItem href="/">
-        <LibraryIcon />
-        Tu biblioteca
+      <SideMenuItem href="/music">
+        <SearchIcon />
+        Descubrir
       </SideMenuItem>
-
-      {playlists.map((playlist) => <SideMenuCard playlist={playlist} />)}
+      
+      <!-- Genre Playlists from Jamendo -->
+      <li class="px-4 py-2 mt-2">
+        <span class="text-xs text-text-muted uppercase tracking-wide">Géneros</span>
+      </li>
+      
+      {genrePlaylists.map((genre) => (
+        <a
+          href={`/genre/${genre.id}`}
+          class="playlist-item flex relative p-2 overflow-hidden items-center gap-3 rounded-md hover:bg-surface-light/50 transition-colors border border-transparent hover:border-accent-cyan/20"
+        >
+          <div 
+            class="h-10 w-10 rounded-md flex items-center justify-center text-lg"
+            style={`background: linear-gradient(135deg, ${genre.color}40, ${genre.color}20);`}
+          >
+            {genre.emoji}
+          </div>
+          <div class="flex flex-auto flex-col truncate">
+            <h4 class="text-text-bright text-sm">{genre.title}</h4>
+            <span class="text-xs text-text-muted">Jamendo</span>
+          </div>
+        </a>
+      ))}
     </ul>
+  </div>
+
+  <!-- Footer metadata -->
+  <div class="px-4 py-2 text-center">
+    <span class="metadata">galodev@portfolio:~$ <span class="text-accent-green">ready</span></span>
   </div>
 </nav>

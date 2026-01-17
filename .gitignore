@@ -17,11 +17,33 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.env.local
+.env.*.local
 
 # macOS-specific files
 .DS_Store
 
-.vercel/
+# Windows-specific files
+Thumbs.db
+desktop.ini
 
-.vercel/**/*
-```
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Deployment
+.vercel/
+.netlify/
+
+# Cache
+.cache/
+.temp/
+.tmp/
+
+# Personal/sensitive files
+*.log
+.gemini/
+prompts/

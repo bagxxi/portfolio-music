@@ -1,33 +1,118 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "@/components/Card.astro";
-import PlayListItemCard from "@/components/PlayListItemCard.astro";
-import Greeting from "@/components/Greeting.svelte";
+import { projects } from "@/lib/portfolio";
+import { personalInfo } from "@/lib/portfolio";
 
-import { playlists } from "@/lib/data";
+// Convert projects to playlist-like format for cards
+const featuredProjects = projects.filter((p) => p.featured).slice(0, 3);
 ---
 
-<Layout title="Spotify Chile Clon">
-  <div
-    id="playlist-container"
-    class="relative transition-all duration-1000 bg-green-600"
-  >
-    <!-- <PageHeader /> -->
+<Layout title="GaloDev Portfolio">
+  <div id="home-container" class="relative transition-all duration-1000">
+    <!-- Hero Section -->
+    <section class="relative px-8 pt-12 pb-8">
+      <div class="flex flex-col gap-6 max-w-4xl">
+        <!-- Metadata decorations -->
+        <div class="flex gap-4 items-center">
+          <span class="badge text-accent-cyan">{personalInfo.status}</span>
+          <span class="metadata"
+            >{personalInfo.location} • {personalInfo.timezone}</span
+          >
+        </div>
 
-    <div class="relative z-10 px-6 pt-10">
-      <Greeting /> 
-      <div class="flex flex-wrap mt-6 gap-4">
-        {playlists.map((playlist) => <PlayListItemCard playlist={playlist} />)}
+        <!-- Main heading -->
+        <h1
+          class="font-display text-6xl font-bold text-text-bright leading-tight"
+        >
+          Hola, soy <span class="text-accent-magenta"
+            >{personalInfo.displayName}</span
+          >
+        </h1>
+
+        <p class="text-2xl text-text-muted font-display">
+          {personalInfo.title}
+        </p>
+
+        <p class="text-lg text-text max-w-2xl">
+          {personalInfo.bio}
+        </p>
+
+        <!-- Quick navigation -->
+        <div class="flex gap-4 mt-4">
+          <a
+            href="/projects"
+            class="px-6 py-3 bg-accent-cyan text-void font-semibold rounded-full hover:bg-accent-green transition-all hover:scale-105"
+          >
+            Ver Proyectos
+          </a>
+          <a
+            href="/contact"
+            class="px-6 py-3 border border-accent-cyan/50 text-accent-cyan rounded-full hover:bg-accent-cyan/10 transition-all"
+          >
+            Contacto
+          </a>
+        </div>
       </div>
-    
 
+      <!-- Background gradient -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-accent-violet/10 via-transparent to-transparent -z-10"
+      >
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="px-8 py-6">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="font-display text-2xl font-bold text-text-bright">
+          Proyectos Destacados
+        </h2>
+        <a
+          href="/projects"
+          class="text-sm text-text-muted hover:text-accent-cyan transition-colors"
+        >
+          Ver todos →
+        </a>
+      </div>
+
+      <div class="flex flex-wrap gap-4">
+        {
+          featuredProjects.map((project) => (
+            <article class="group relative hover:bg-surface-light shadow-lg hover:shadow-xl bg-surface/50 rounded-md transition-all duration-300 border border-surface-lighter/20 hover:border-accent-cyan/30">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener"
+                class="flex relative p-3 overflow-hidden gap-2 pb-4 w-48 flex-col"
+              >
+                <picture class="aspect-square w-full h-auto flex-none">
+                  <img
+                    src={project.cover}
+                    alt={`Cover of ${project.title}`}
+                    class="object-cover w-full h-full rounded-md"
+                    onerror="this.src='/placeholder.svg'"
+                  />
+                </picture>
+
+                <div class="flex flex-auto flex-col px-1">
+                  <h4 class="text-text-bright text-sm font-semibold">
+                    {project.title}
+                  </h4>
+                  <span class="text-xs text-text-muted line-clamp-2">
+                    {project.tech.slice(0, 3).join(" • ")}
+                  </span>
+                </div>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Decorative gradient background -->
     <div
-	class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80 -z-[1]"
+      class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent -z-[1] pointer-events-none"
     >
     </div>
-    <style></style>
   </div>
-</div>
 </Layout>
-
-

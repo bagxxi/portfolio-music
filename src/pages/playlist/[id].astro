@@ -10,24 +10,22 @@ const playlist = allPlaylists.find((playlist) => playlist.id === id);
 const playListSongs = songs.filter(
   (song) => song.albumId === playlist?.albumId
 );
+
 function calcularDuracionPlaylist(songs: Song[], albumId: number) {
   let totalMinutos = 0;
   let totalSegundos = 0;
 
-  // Filtrar las canciones que pertenecen al albumId dado
   const cancionesPlaylist = songs.filter(cancion => cancion.albumId === albumId);
 
-  // Sumar la duración de cada canción
   cancionesPlaylist.forEach(cancion => {
     const [minutos, segundos] = cancion.duration.split(':').map(Number);
     totalMinutos += minutos;
     totalSegundos += segundos;
   });
-    // Convertir los segundos a minutos si es necesario
-    totalMinutos += Math.floor(totalSegundos / 60);
+  
+  totalMinutos += Math.floor(totalSegundos / 60);
   totalSegundos %= 60;
 
-  // Devolver los resultados como strings
   return {
     minutos: totalMinutos.toString(),
     segundos: totalSegundos.toString().padStart(2, '0')
@@ -36,41 +34,40 @@ function calcularDuracionPlaylist(songs: Song[], albumId: number) {
 
 const duracionPlaylist = calcularDuracionPlaylist(songs, playlist?.albumId!);
 ---
-<Layout title="Spotify Chile Clon">
+<Layout title={`${playlist?.title} | GaloDev Portfolio`}>
   <div
     id="playlist-container"
-    class="relative flex flex-col h-full bg-zinc-900 overflow-x-hidden"
+    class="relative flex flex-col h-full bg-surface overflow-x-hidden"
     transition:name=`playlist ${id} box`
   >
-    <!-- <PageHeader /> -->
-
     <header class="flex flex-row gap-8 px-6 mt-12">
-      <picture class="aspect-square w-52 h-52 flex-none">
+      <picture class="aspect-square w-52 h-52 flex-none bg-surface-light rounded-lg overflow-hidden shadow-xl">
         <img
           src={playlist?.cover}
           alt={`Cover of ${playlist?.title}`}
-          class="object-cover w-full h-full shadow-lg"
+          class="object-cover w-full h-full playlist-page-cover"
+          data-fallback="/placeholder.svg"
           transition:name=`playlist ${playlist?.id} image`
         />
       </picture>
 
       <div class="flex flex-col justify-between">
-        <h2 class="flex flex-1 items-end">Playlist</h2>
+        <h2 class="flex flex-1 items-end text-accent-cyan font-mono text-sm uppercase tracking-wide">Playlist</h2>
         <div>
-          <h1 class="text-5xl font-bold block text-white">
+          <h1 class="text-5xl font-display font-bold block text-text-bright">
             {playlist?.title}
             <span transition:name=`playlist ${playlist?.id} title`></span>
           </h1>
         </div>
 
         <div class="flex-1 flex items-end">
-          <div class="text-sm text-gray-300 font-normal">
+          <div class="text-sm text-text-muted font-normal">
             <div transition:name=`playlist ${playlist?.id} artists`>
-              <span>{playlist?.artists.join(", ")}</span>
+              <span class="text-accent-magenta">{playlist?.artists.join(", ")}</span>
             </div>
             <p class="mt-1">
-              <span class="text-white">{playListSongs.length} canciones</span>,
-              {duracionPlaylist.minutos} minutos y {duracionPlaylist.segundos} segundos
+              <span class="text-text-bright">{playListSongs.length} canciones</span>,
+              {duracionPlaylist.minutos} min {duracionPlaylist.segundos} seg
             </p>
           </div>
         </div>
@@ -84,7 +81,7 @@ const duracionPlaylist = calcularDuracionPlaylist(songs, playlist?.albumId!);
     <div class="relative z-10 px-6 pt-10"></div>
 
     <div
-      class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80 -z-[1]"
+      class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent -z-[1]"
     >
     </div>
 
@@ -94,3 +91,18 @@ const duracionPlaylist = calcularDuracionPlaylist(songs, playlist?.albumId!);
 
   </div>
 </Layout>
+
+<script>
+  // Image fallback handling for playlist page
+  document.addEventListener('astro:page-load', () => {
+    const images = document.querySelectorAll('.playlist-page-cover') as NodeListOf<HTMLImageElement>;
+    images.forEach(img => {
+      img.addEventListener('error', function() {
+        const fallback = this.getAttribute('data-fallback');
+        if (fallback && this.src !== fallback) {
+          this.src = fallback;
+        }
+      });
+    });
+  });
+</script>
