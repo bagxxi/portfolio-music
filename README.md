@@ -143,7 +143,7 @@ Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 
 **Gabriel (GaloDev)**
 
-- Website: [elgalo.dev](https://elgalo.dev)
+- Website: [elgalo.me](https://elgalo.me)
 - GitHub: [@bagxxi](https://github.com/bagxxi)
 - LinkedIn: [gabrielbalbontin](https://linkedin.com/in/gabrielbalbontin)
 

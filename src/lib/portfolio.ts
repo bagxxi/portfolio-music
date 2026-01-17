@@ -52,7 +52,7 @@ export const personalInfo: PersonalInfo = {
     location: "Chile",
     timezone: "UTC -03:00",
     status: "Disponible para proyectos",
-    email: "contacto@elgalo.dev",
+    email: "contacto@elgalo.me",
     github: "https://github.com/bagxxi",
     linkedin: "/linkedin",
     avatar: "/avatar.jpg"
@@ -220,5 +220,5 @@ export const skillCategories: SkillCategory[] = [
 export const socialLinks = [
     { name: "GitHub", url: "https://github.com/bagxxi", icon: "github" },
     { name: "LinkedIn", url: "/linkedin", icon: "linkedin" },
-    { name: "Email", url: "mailto:contacto@elgalo.dev", icon: "mail" }
+    { name: "Email", url: "mailto:contacto@elgalo.me", icon: "mail" }
 ];
