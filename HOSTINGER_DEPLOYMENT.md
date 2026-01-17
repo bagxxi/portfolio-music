@@ -2,46 +2,74 @@
 
 ## ⚠️ Problema Común: Error de Compilación
 
-Si ves el error "La compilación falló" en Hostinger, es porque Hostinger está intentando compilar el proyecto Node.js directamente en su servidor. **Este proyecto ya está pre-compilado** por GitHub Actions.
+Si ves el error "La compilación falló" en Hostinger, es porque Hostinger detectó automáticamente que conectaste un repositorio de GitHub y está intentando compilar el proyecto Node.js directamente en su servidor. **Este proyecto ya está pre-compilado** y solo necesita servir archivos estáticos.
 
 ## ✅ Solución Recomendada
 
-### Opción 1: Usar GitHub Actions (Automático)
+### Paso 1: Compila el Proyecto Localmente
 
-1. **Desconecta Git Deployment en Hostinger**:
-   - Panel de Hostinger → Git → Desconectar repositorio
+```bash
+npm run build
+```
 
-2. **Configura GitHub Actions**:
-   - Ve a tu repositorio en GitHub
-   - Settings → Secrets and variables → Actions
-   - Agrega los secrets FTP (ver `.github/workflows/README.md`)
+Esto generará la carpeta `dist/` con todos los archivos estáticos listos para producción.
 
-3. **Push a main**:
-   - Cada push compilará el proyecto en GitHub
-   - Subirá automáticamente solo los archivos estáticos vía FTP
+### Paso 2: Sube los Archivos Compilados vía FTP
 
-### Opción 2: Deployment Manual (Sin GitHub Actions)
+**IMPORTANTE**: Sube **SOLO** el contenido de la carpeta `dist/`, NO el proyecto completo.
 
-1. **Compila localmente**:
-   ```bash
-   npm run build
-   ```
+#### Usando FileZilla (Recomendado)
 
-2. **Sube SOLO la carpeta dist/**:
-   - Usa FTP (FileZilla, WinSCP, etc.)
-   - Servidor: Tu servidor FTP de Hostinger
-   - Sube el **contenido** de `dist/` a `public_html/`
-   - **NO subas**: `package.json`, `node_modules`, `src/`, etc.
+1. **Descarga FileZilla**: https://filezilla-project.org/
 
-3. **Verifica la estructura en Hostinger**:
-   ```
-   public_html/
-   ├── index.html          ← Debe estar aquí
-   ├── _astro/
-   ├── about/
-   ├── projects/
-   └── ...
-   ```
+2. **Conecta a Hostinger**:
+   - Host: Tu servidor FTP (generalmente `ftp.tudominio.com`)
+   - Usuario: Tu usuario FTP de Hostinger
+   - Contraseña: Tu contraseña FTP
+   - Puerto: 21
+
+3. **Obtén las credenciales FTP**:
+   - Panel de Hostinger → **Archivos** → **Administrador de archivos**
+   - Busca la sección **FTP** o **Cuentas FTP**
+   - Anota: Servidor, Usuario, Contraseña
+
+4. **Sube los archivos**:
+   - En FileZilla, navega a `public_html/` en el servidor (lado derecho)
+   - En tu computadora, abre la carpeta `dist/` del proyecto (lado izquierdo)
+   - Selecciona **TODO** el contenido dentro de `dist/` (no la carpeta dist misma)
+   - Arrastra y suelta al lado derecho en `public_html/`
+
+#### Usando File Manager de Hostinger
+
+1. **Accede al File Manager**:
+   - Panel de Hostinger → **Archivos** → **Administrador de archivos**
+
+2. **Navega a public_html/**
+
+3. **Sube los archivos**:
+   - Click en **Subir archivos** o **Upload**
+   - Selecciona TODO el contenido de la carpeta `dist/`
+   - Espera a que termine la subida
+
+### Paso 3: Verifica la Estructura
+
+En `public_html/` deberías tener esta estructura:
+
+```
+public_html/
+├── index.html          ← Debe estar aquí (no dentro de una carpeta dist)
+├── .htaccess           ← El archivo se copiará automáticamente desde dist
+├── _astro/             ← Carpeta con archivos JS/CSS
+├── about/
+│   └── index.html
+├── projects/
+│   └── index.html
+├── music/
+├── contact/
+└── ...
+```
+
+**IMPORTANTE**: El archivo `index.html` debe estar directamente en `public_html/`, NO en `public_html/dist/`
 
 ## 🔧 Configuración del Document Root
 
@@ -49,31 +77,34 @@ Si los archivos están subidos pero no se ven:
 
 1. Panel de Hostinger → **Hosting** → **Configuración**
 2. Busca **Document Root** o **Carpeta raíz**
-3. Asegúrate de que apunte a donde está `index.html`
-4. Generalmente debe ser: `public_html/`
+3. Asegúrate de que apunte a: `public_html/`
+4. Guarda los cambios y espera 1-2 minutos
 
 ## 📋 Checklist de Deployment
 
 - [ ] Compilar localmente con `npm run build`
+- [ ] Verificar que la carpeta `dist/` se creó correctamente
 - [ ] Subir **SOLO** el contenido de `dist/` (no la carpeta dist misma)
 - [ ] Verificar que `index.html` esté en la raíz de `public_html/`
-- [ ] Configurar Document Root correctamente
-- [ ] Desconectar Git Deployment si está activo
+- [ ] Verificar que `.htaccess` esté en `public_html/`
+- [ ] Configurar Document Root a `public_html/`
 - [ ] Probar el sitio en tu dominio
 
 ## 🐛 Solución de Problemas
 
 ### "La compilación falló"
-- **Causa**: Hostinger intenta compilar el proyecto
-- **Solución**: Desconecta Git Deployment y usa FTP
+- **Causa**: Hostinger detectó el repositorio de GitHub y está intentando compilarlo automáticamente
+- **Solución**: Ignora el error de Hostinger y sube los archivos compilados manualmente vía FTP (Paso 1 y 2 arriba)
 
 ### "404 Not Found"
-- **Causa**: Document Root incorrecto
-- **Solución**: Verifica que apunte a donde está `index.html`
+- **Causa**: Document Root incorrecto o archivos no subidos correctamente
+- **Solución**: 
+  1. Verifica que `index.html` esté en `public_html/` (no en una subcarpeta)
+  2. Verifica Document Root en Hostinger → Hosting → Configuración
 
 ### "Página en blanco"
-- **Causa**: Rutas de archivos incorrectas
-- **Solución**: Asegúrate de subir TODO el contenido de `dist/`
+- **Causa**: Rutas de archivos incorrectas o falta la carpeta `_astro/`
+- **Solución**: Asegúrate de subir TODO el contenido de `dist/`, incluyendo todas las subcarpetas
 
 ### "Cannot GET /about"
 - **Causa**: Configuración de rutas del servidor
