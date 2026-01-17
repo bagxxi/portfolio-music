@@ -131,6 +131,22 @@ Este proyecto genera un sitio **100% estático** que puede desplegarse en cualqu
 
 ### Despliegue en Hostinger
 
+#### Opción 1: Deployment Automático con GitHub Actions (Recomendado)
+
+Este proyecto incluye un workflow de GitHub Actions que automatiza el deployment a Hostinger.
+
+1. Configura los secrets en tu repositorio de GitHub:
+   - `FTP_SERVER`: Servidor FTP de Hostinger
+   - `FTP_USERNAME`: Usuario FTP
+   - `FTP_PASSWORD`: Contraseña FTP
+   - `PUBLIC_JAMENDO_CLIENT_ID`: Tu API key de Jamendo
+
+2. Cada push a la rama `main` desplegará automáticamente los cambios
+
+Ver más detalles en [`.github/workflows/README.md`](.github/workflows/README.md)
+
+#### Opción 2: Deployment Manual
+
 1. Construye el proyecto localmente:
 ```bash
 npm run build
