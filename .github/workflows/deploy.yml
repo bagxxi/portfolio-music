@@ -28,6 +28,18 @@ jobs:
         env:
           PUBLIC_JAMENDO_CLIENT_ID: ${{ secrets.PUBLIC_JAMENDO_CLIENT_ID }}
 
+      - name: Verify FTP secrets are configured
+        run: |
+          if [ -z "${{ secrets.FTP_SERVER }}" ]; then
+            echo "❌ Error: FTP_SERVER secret is not configured"
+            echo "Please configure the following secrets in GitHub:"
+            echo "  - FTP_SERVER"
+            echo "  - FTP_USERNAME"
+            echo "  - FTP_PASSWORD"
+            echo "Go to: Settings → Secrets and variables → Actions"
+            exit 1
+          fi
+
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -37,3 +49,8 @@ jobs:
           local-dir: ./dist/
           server-dir: ./public_html/
           dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+
