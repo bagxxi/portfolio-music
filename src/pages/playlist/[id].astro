@@ -4,36 +4,46 @@ import MusicsTable from "@/components/MusicsTable.astro";
 import { CardPlayButton } from "@/components/CardPlayButton";
 import { allPlaylists, songs, type Song } from "@/lib";
 
+// Generate static paths for all playlists
+export function getStaticPaths() {
+  return allPlaylists.map((playlist) => ({
+    params: { id: playlist.id },
+  }));
+}
+
 const { id } = Astro.params;
 
 const playlist = allPlaylists.find((playlist) => playlist.id === id);
 const playListSongs = songs.filter(
-  (song) => song.albumId === playlist?.albumId
+  (song) => song.albumId === playlist?.albumId,
 );
 
 function calcularDuracionPlaylist(songs: Song[], albumId: number) {
   let totalMinutos = 0;
   let totalSegundos = 0;
 
-  const cancionesPlaylist = songs.filter(cancion => cancion.albumId === albumId);
+  const cancionesPlaylist = songs.filter(
+    (cancion) => cancion.albumId === albumId,
+  );
 
-  cancionesPlaylist.forEach(cancion => {
-    const [minutos, segundos] = cancion.duration.split(':').map(Number);
+  cancionesPlaylist.forEach((cancion) => {
+    const [minutos, segundos] = cancion.duration.split(":").map(Number);
     totalMinutos += minutos;
     totalSegundos += segundos;
   });
-  
+
   totalMinutos += Math.floor(totalSegundos / 60);
   totalSegundos %= 60;
 
   return {
     minutos: totalMinutos.toString(),
-    segundos: totalSegundos.toString().padStart(2, '0')
+    segundos: totalSegundos.toString().padStart(2, "0"),
   };
 }
 
 const duracionPlaylist = calcularDuracionPlaylist(songs, playlist?.albumId!);
 ---
+
 <Layout title={`${playlist?.title} | GaloDev Portfolio`}>
   <div
     id="playlist-container"
@@ -41,7 +51,9 @@ const duracionPlaylist = calcularDuracionPlaylist(songs, playlist?.albumId!);
     transition:name=`playlist ${id} box`
   >
     <header class="flex flex-row gap-8 px-6 mt-12">
-      <picture class="aspect-square w-52 h-52 flex-none bg-surface-light rounded-lg overflow-hidden shadow-xl">
+      <picture
+        class="aspect-square w-52 h-52 flex-none bg-surface-light rounded-lg overflow-hidden shadow-xl"
+      >
         <img
           src={playlist?.cover}
           alt={`Cover of ${playlist?.title}`}
@@ -52,7 +64,11 @@ const duracionPlaylist = calcularDuracionPlaylist(songs, playlist?.albumId!);
       </picture>
 
       <div class="flex flex-col justify-between">
-        <h2 class="flex flex-1 items-end text-accent-cyan font-mono text-sm uppercase tracking-wide">Playlist</h2>
+        <h2
+          class="flex flex-1 items-end text-accent-cyan font-mono text-sm uppercase tracking-wide"
+        >
+          Playlist
+        </h2>
         <div>
           <h1 class="text-5xl font-display font-bold block text-text-bright">
             {playlist?.title}
@@ -63,10 +79,14 @@ const duracionPlaylist = calcularDuracionPlaylist(songs, playlist?.albumId!);
         <div class="flex-1 flex items-end">
           <div class="text-sm text-text-muted font-normal">
             <div transition:name=`playlist ${playlist?.id} artists`>
-              <span class="text-accent-magenta">{playlist?.artists.join(", ")}</span>
+              <span class="text-accent-magenta"
+                >{playlist?.artists.join(", ")}</span
+              >
             </div>
             <p class="mt-1">
-              <span class="text-text-bright">{playListSongs.length} canciones</span>,
+              <span class="text-text-bright"
+                >{playListSongs.length} canciones</span
+              >,
               {duracionPlaylist.minutos} min {duracionPlaylist.segundos} seg
             </p>
           </div>
@@ -88,17 +108,18 @@ const duracionPlaylist = calcularDuracionPlaylist(songs, playlist?.albumId!);
     <section class="p-6">
       <MusicsTable songs={playListSongs} />
     </section>
-
   </div>
 </Layout>
 
 <script>
   // Image fallback handling for playlist page
-  document.addEventListener('astro:page-load', () => {
-    const images = document.querySelectorAll('.playlist-page-cover') as NodeListOf<HTMLImageElement>;
-    images.forEach(img => {
-      img.addEventListener('error', function() {
-        const fallback = this.getAttribute('data-fallback');
+  document.addEventListener("astro:page-load", () => {
+    const images = document.querySelectorAll(
+      ".playlist-page-cover",
+    ) as NodeListOf<HTMLImageElement>;
+    images.forEach((img) => {
+      img.addEventListener("error", function () {
+        const fallback = this.getAttribute("data-fallback");
         if (fallback && this.src !== fallback) {
           this.src = fallback;
         }

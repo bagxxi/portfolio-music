@@ -121,12 +121,29 @@ Para agregar playlists locales, edita `src/lib/data.ts` y coloca los archivos de
 
 ## 🌐 Despliegue
 
-Este proyecto está optimizado para desplegarse en:
+Este proyecto genera un sitio **100% estático** que puede desplegarse en cualquier hosting:
 
-- **Netlify** (recomendado)
+- **Hostinger** (recomendado para este proyecto)
+- **Netlify**
 - **Vercel**
 - **GitHub Pages**
 - Cualquier hosting que soporte sitios estáticos
+
+### Despliegue en Hostinger
+
+1. Construye el proyecto localmente:
+```bash
+npm run build
+```
+
+2. El contenido estático se generará en la carpeta `dist/`
+
+3. Sube el contenido de la carpeta `dist/` a tu hosting de Hostinger mediante:
+   - FTP/SFTP
+   - File Manager del panel de control
+   - Git deployment (si está disponible)
+
+4. Configura las variables de entorno en el panel de Hostinger si es necesario
 
 ### Despliegue en Netlify
 
