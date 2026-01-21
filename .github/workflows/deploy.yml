@@ -33,7 +33,9 @@ jobs:
           fi
 
       - name: Build project
-        run: npm run build
+        run: |
+          echo "API Key configured: $(echo $PUBLIC_JAMENDO_CLIENT_ID | cut -c1-4)***"
+          npm run build
         env:
           PUBLIC_JAMENDO_CLIENT_ID: ${{ secrets.PUBLIC_JAMENDO_CLIENT_ID }}
 

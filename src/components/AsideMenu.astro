@@ -7,11 +7,11 @@ import SideMenuItem from "./SideMenuItem.astro";
 
 // Jamendo genre playlists
 const genrePlaylists = [
-  { id: 'metal', title: 'Metal', emoji: '🎸', color: '#f7768e' },
-  { id: 'rock', title: 'Rock', emoji: '🔥', color: '#ff9e64' },
-  { id: 'hiphop', title: 'Hip-Hop', emoji: '🎤', color: '#9ece6a' },
-  { id: 'electronic', title: 'Electrónica', emoji: '🎧', color: '#7dcfff' },
-  { id: 'jazz', title: 'Jazz', emoji: '🎷', color: '#bb9af7' },
+  { id: "metal", title: "Metal", emoji: "🎸", color: "#f7768e" },
+  { id: "rock", title: "Rock", emoji: "🔥", color: "#ff9e64" },
+  { id: "hiphop", title: "Hip-Hop", emoji: "🎤", color: "#9ece6a" },
+  { id: "electronic", title: "Electrónica", emoji: "🎧", color: "#7dcfff" },
+  { id: "jazz", title: "Jazz", emoji: "🎷", color: "#bb9af7" },
 ];
 ---
 
@@ -20,67 +20,81 @@ const genrePlaylists = [
   <div class="bg-surface rounded-lg p-2 border border-surface-lighter/20">
     <ul>
       <SideMenuItem href="/">
-        <HomeIcon />
+        <HomeIcon slot="icon" />
         Inicio
       </SideMenuItem>
       <SideMenuItem href="/about">
-        <SectionIcon type="user" />
+        <SectionIcon type="user" slot="icon" />
         Sobre mí
       </SideMenuItem>
       <SideMenuItem href="/projects">
-        <SectionIcon type="code" />
+        <SectionIcon type="code" slot="icon" />
         Proyectos
       </SideMenuItem>
       <SideMenuItem href="/skills">
-        <SectionIcon type="terminal" />
+        <SectionIcon type="terminal" slot="icon" />
         Skills
       </SideMenuItem>
       <SideMenuItem href="/contact">
-        <SectionIcon type="mail" />
+        <SectionIcon type="mail" slot="icon" />
         Contacto
       </SideMenuItem>
     </ul>
   </div>
 
   <!-- Music Library -->
-  <div class="bg-surface rounded-lg p-2 flex-1 border border-surface-lighter/20 overflow-y-auto">
-    <div class="px-4 py-2 flex items-center gap-2">
+  <div
+    class="bg-surface rounded-lg p-2 flex-1 border border-surface-lighter/20 overflow-y-auto"
+  >
+    <div
+      class="px-2 md:px-4 py-2 flex items-center justify-center md:justify-start gap-2"
+    >
       <SectionIcon type="music" class="text-accent-cyan" />
-      <span class="font-display font-medium text-text-bright">Música</span>
+      <span class="font-display font-medium text-text-bright hidden md:inline"
+        >Música</span
+      >
     </div>
     <ul>
       <SideMenuItem href="/music">
-        <SearchIcon />
+        <SearchIcon slot="icon" />
         Descubrir
       </SideMenuItem>
-      
+
       <!-- Genre Playlists from Jamendo -->
-      <li class="px-4 py-2 mt-2">
-        <span class="text-xs text-text-muted uppercase tracking-wide">Géneros</span>
-      </li>
-      
-      {genrePlaylists.map((genre) => (
-        <a
-          href={`/genre/${genre.id}`}
-          class="playlist-item flex relative p-2 overflow-hidden items-center gap-3 rounded-md hover:bg-surface-light/50 transition-colors border border-transparent hover:border-accent-cyan/20"
+      <li class="px-2 md:px-4 py-2 mt-2 hidden md:block">
+        <span class="text-xs text-text-muted uppercase tracking-wide"
+          >Géneros</span
         >
-          <div 
-            class="h-10 w-10 rounded-md flex items-center justify-center text-lg"
-            style={`background: linear-gradient(135deg, ${genre.color}40, ${genre.color}20);`}
+      </li>
+
+      {
+        genrePlaylists.map((genre) => (
+          <a
+            href={`/genre/${genre.id}`}
+            class="playlist-item flex relative p-2 overflow-hidden items-center gap-3 rounded-md hover:bg-surface-light/50 transition-colors border border-transparent hover:border-accent-cyan/20 justify-center md:justify-start"
+            title={genre.title}
           >
-            {genre.emoji}
-          </div>
-          <div class="flex flex-auto flex-col truncate">
-            <h4 class="text-text-bright text-sm">{genre.title}</h4>
-            <span class="text-xs text-text-muted">Jamendo</span>
-          </div>
-        </a>
-      ))}
+            <div
+              class="h-10 w-10 rounded-md flex items-center justify-center text-lg shrink-0"
+              style={`background: linear-gradient(135deg, ${genre.color}40, ${genre.color}20);`}
+            >
+              {genre.emoji}
+            </div>
+            <div class="flex flex-auto flex-col truncate hidden md:flex">
+              <h4 class="text-text-bright text-sm">{genre.title}</h4>
+              <span class="text-xs text-text-muted">Jamendo</span>
+            </div>
+          </a>
+        ))
+      }
     </ul>
   </div>
 
   <!-- Footer metadata -->
-  <div class="px-4 py-2 text-center">
-    <span class="metadata">galodev@portfolio:~$ <span class="text-accent-green">ready</span></span>
+  <div class="px-2 md:px-4 py-2 text-center">
+    <span class="metadata hidden md:inline"
+      >galodev@portfolio:~$ <span class="text-accent-green">ready</span></span
+    >
+    <span class="metadata md:hidden text-accent-green">●</span>
   </div>
 </nav>
