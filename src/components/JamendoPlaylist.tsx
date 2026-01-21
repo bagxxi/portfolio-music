@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { usePlayerStore } from '@/store/playerStore';
-
-const JAMENDO_CLIENT_ID = import.meta.env.PUBLIC_JAMENDO_CLIENT_ID || '';
-const JAMENDO_BASE_URL = 'https://api.jamendo.com/v3.0';
+import { JAMENDO_CLIENT_ID, JAMENDO_BASE_URL } from '@/lib/jamendo';
 
 interface JamendoTrack {
     id: string;
@@ -36,8 +34,12 @@ export function JamendoPlaylist({ tag, title, description, accentColor }: Jamend
 
     useEffect(() => {
         const fetchTracks = async () => {
+            // Check if API key is configured
             if (!JAMENDO_CLIENT_ID) {
-                setError('API key not configured');
+                const isProd = import.meta.env.PROD;
+                setError(isProd
+                    ? 'API Key no configurada. Verifica los Secrets de GitHub (PUBLIC_JAMENDO_CLIENT_ID) y que la Action haya terminado de compilar.'
+                    : 'API Key no configurada en el archivo .env local.');
                 setIsLoading(false);
                 return;
             }
@@ -54,9 +56,14 @@ export function JamendoPlaylist({ tag, title, description, accentColor }: Jamend
 
                 const response = await fetch(`${JAMENDO_BASE_URL}/tracks/?${params}`);
                 const data = await response.json();
-                setTracks(data.results || []);
+
+                if (data.headers?.status === 'failed') {
+                    setError(`Error de Jamendo: ${data.headers.error_message || 'API Key inválida'}`);
+                } else {
+                    setTracks(data.results || []);
+                }
             } catch (err) {
-                setError('Error loading tracks');
+                setError('Error de conexión con Jamendo');
                 console.error(err);
             } finally {
                 setIsLoading(false);
@@ -109,8 +116,13 @@ export function JamendoPlaylist({ tag, title, description, accentColor }: Jamend
 
     if (error) {
         return (
-            <div className="p-8 text-center text-accent-pink">
-                {error}
+            <div className="p-8 text-center">
+                <div className="inline-block p-4 border border-accent-pink/30 bg-accent-pink/10 rounded-lg">
+                    <p className="text-accent-pink font-medium mb-2">⚠️ Error de Configuración</p>
+                    <p className="text-sm text-text-muted max-w-md mx-auto">
+                        {error}
+                    </p>
+                </div>
             </div>
         );
     }
@@ -126,6 +138,9 @@ export function JamendoPlaylist({ tag, title, description, accentColor }: Jamend
                     {tag === 'metal' && '🎸'}
                     {tag === 'rock' && '🔥'}
                     {tag === 'hiphop' && '🎤'}
+                    {tag === 'electronic' && '🎧'}
+                    {tag === 'jazz' && '🎷'}
+                    {tag === 'classical' && '🎻'}
                 </div>
 
                 <div className="flex flex-col justify-end">

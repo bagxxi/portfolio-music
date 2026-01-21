@@ -4,9 +4,8 @@
 // The client_id is loaded from environment variables (.env file)
 // This keeps the API key private and out of Git!
 // In Astro, PUBLIC_ prefix makes the variable available on client-side
-const JAMENDO_CLIENT_ID = import.meta.env.PUBLIC_JAMENDO_CLIENT_ID || '';
-
-const JAMENDO_BASE_URL = 'https://api.jamendo.com/v3.0';
+export const JAMENDO_CLIENT_ID = import.meta.env.PUBLIC_JAMENDO_CLIENT_ID || '';
+export const JAMENDO_BASE_URL = 'https://api.jamendo.com/v3.0';
 
 export interface JamendoTrack {
     id: string;

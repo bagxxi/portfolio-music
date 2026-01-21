@@ -1,16 +1,6 @@
 import { useState, useEffect } from 'react';
 import { usePlayerStore } from '@/store/playerStore';
-
-// Jamendo API configuration
-const JAMENDO_CLIENT_ID = import.meta.env.PUBLIC_JAMENDO_CLIENT_ID || '';
-const JAMENDO_BASE_URL = 'https://api.jamendo.com/v3.0';
-
-// Format duration from seconds to MM:SS
-function formatDuration(seconds: number): string {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-}
+import { JAMENDO_CLIENT_ID, JAMENDO_BASE_URL, formatDuration } from '@/lib/jamendo';
 
 interface JamendoTrack {
     id: string;
@@ -124,9 +114,9 @@ export function MusicSearch() {
             {/* API Key Warning */}
             {!JAMENDO_CLIENT_ID && (
                 <div className="mb-6 p-4 border border-accent-orange/50 rounded-lg bg-accent-orange/10">
-                    <p className="text-accent-orange text-sm">
-                        ⚠️ No se ha configurado el client_id de Jamendo.
-                        Añade <code className="text-accent-cyan">PUBLIC_JAMENDO_CLIENT_ID</code> en tu archivo <code className="text-accent-cyan">.env</code>
+                    <p className="text-accent-orange text-sm text-center">
+                        ⚠️ No se ha configurado el client_id de Jamendo.<br />
+                        Añade <code className="text-accent-cyan">PUBLIC_JAMENDO_CLIENT_ID</code> en los Secrets de tu repositorio en GitHub para el despliegue.
                     </p>
                 </div>
             )}
