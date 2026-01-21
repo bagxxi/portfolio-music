@@ -54,7 +54,7 @@ export const personalInfo: PersonalInfo = {
     status: "Disponible para proyectos",
     email: "contacto@elgalo.me",
     github: "https://github.com/bagxxi",
-    linkedin: "/linkedin",
+    linkedin: "https://www.linkedin.com/in/galodev/",
     avatar: "/avatar.jpg"
 };
 
@@ -219,6 +219,6 @@ export const skillCategories: SkillCategory[] = [
 // Social Links for Contact
 export const socialLinks = [
     { name: "GitHub", url: "https://github.com/bagxxi", icon: "github" },
-    { name: "LinkedIn", url: "/linkedin", icon: "linkedin" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/galodev/", icon: "linkedin" },
     { name: "Email", url: "mailto:contacto@elgalo.me", icon: "mail" }
 ];
