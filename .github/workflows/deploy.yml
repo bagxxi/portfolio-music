@@ -33,9 +33,7 @@ jobs:
           fi
 
       - name: Build project
-        run: |
-          echo "API Key configured: $(echo $PUBLIC_JAMENDO_CLIENT_ID | cut -c1-4)***"
-          npm run build
+        run: npm run build
         env:
           PUBLIC_JAMENDO_CLIENT_ID: ${{ secrets.PUBLIC_JAMENDO_CLIENT_ID }}
 
@@ -59,7 +57,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
           server-dir: public_html/
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false
           exclude: |
             **/.git*
             **/.git*/**
