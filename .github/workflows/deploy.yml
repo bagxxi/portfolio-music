@@ -23,6 +23,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify Jamendo API Key
+        run: |
+          if [ -z "${{ secrets.PUBLIC_JAMENDO_CLIENT_ID }}" ]; then
+            echo "❌ Error: PUBLIC_JAMENDO_CLIENT_ID no está configurado en los Secrets de GitHub"
+            echo "Debes ir a: Settings -> Secrets and variables -> Actions"
+            echo "Y crear un 'New repository secret' llamado PUBLIC_JAMENDO_CLIENT_ID"
+            exit 1
+          fi
+
       - name: Build project
         run: npm run build
         env:
