@@ -43,8 +43,8 @@ const CurrentSong = ({ image, title, artists }) => {
   }, [image]);
 
   return (
-    <div className={`flex items-center gap-5 relative overflow-hidden`}>
-      <picture className="w-16 h-16 bg-surface-light rounded-md shadow-lg overflow-hidden">
+    <div className="flex items-center gap-2 md:gap-4 relative overflow-hidden min-w-0">
+      <picture className="w-10 h-10 md:w-14 md:h-14 bg-surface-light rounded-md shadow-lg overflow-hidden flex-shrink-0">
         <img
           src={imgSrc || '/placeholder.svg'}
           alt={title}
@@ -53,15 +53,14 @@ const CurrentSong = ({ image, title, artists }) => {
         />
       </picture>
 
-      <div className="flex flex-col">
-        <h3 className="font-semibold text-sm block text-text-bright">
+      <div className="flex flex-col min-w-0 overflow-hidden">
+        <h3 className="font-semibold text-xs md:text-sm block text-text-bright truncate">
           {title}
         </h3>
-        <span className="text-xs text-text-muted">
+        <span className="text-[10px] md:text-xs text-text-muted truncate">
           {artists?.join(', ')}
         </span>
       </div>
-
     </div>
   )
 }
@@ -93,21 +92,21 @@ const SongControl = ({ audio }) => {
   const duration = audio?.current?.duration ?? 0
 
   return (
-    <div className="flex gap-x-3 text-xs pt-2">
-      <span className="opacity-50 w-12 text-right">{formatTime(currentTime)}</span>
+    <div className="flex gap-x-2 md:gap-x-3 text-xs pt-2 w-full max-w-[500px] px-2">
+      <span className="opacity-50 w-8 md:w-12 text-right text-[10px] md:text-xs">{formatTime(currentTime)}</span>
 
       <Slider
         value={[currentTime]}
         max={audio?.current?.duration ?? 0}
         min={0}
-        className="w-[400px]"
+        className="flex-1 min-w-0"
         onValueChange={(value) => {
           const [newCurrentTime] = value
           audio.current.currentTime = newCurrentTime
         }}
       />
 
-      <span className="opacity-50 w-12">
+      <span className="opacity-50 w-8 md:w-12 text-[10px] md:text-xs">
         {duration ? formatTime(duration) : '0:00'}
       </span>
     </div>
@@ -146,7 +145,7 @@ const VolumeControl = () => {
   }
 
   return (
-    <div className="flex justify-center gap-x-2 text-white items-center">
+    <div className="hidden md:flex justify-center gap-x-2 text-white items-center">
       <button className="opacity-70 hover:opacity-100 transition" onClick={handleClickVolumen}>
         <VolumeIcon />
       </button>
@@ -156,7 +155,7 @@ const VolumeControl = () => {
         max={100}
         min={0}
         value={[volume * 100]}
-        className="w-[95px]"
+        className="w-[70px] lg:w-[95px]"
         onValueChange={(value) => {
           const [newVolume] = value
           const volumeValue = newVolume / 100
@@ -224,47 +223,49 @@ export function Player() {
   }
 
   return (
-    <div className="flex flex-row justify-between w-full px-1 z-50">
-      <div className="w-[200px]">
+    <div className="flex flex-row items-center justify-between w-full px-2 md:px-4 z-50 h-full gap-2 md:gap-4">
+      {/* Current song info - flexible width */}
+      <div className="flex-shrink-0 w-auto min-w-0 max-w-[120px] sm:max-w-[180px] md:max-w-[250px]">
         <CurrentSong {...currentMusic.song} />
       </div>
 
-      <div className="grid place-content-center gap-4 flex-1">
-        <div className="flex justify-center flex-col items-center">
-          {/* Playback controls with prev/next */}
-          <div className="flex items-center gap-4">
-            <button
-              className="opacity-70 hover:opacity-100 transition p-1"
-              onClick={handlePrev}
-              title="Anterior"
-            >
-              <PrevIcon />
-            </button>
+      {/* Player controls - centered and flexible */}
+      <div className="flex flex-col items-center justify-center flex-1 min-w-0">
+        {/* Playback controls with prev/next */}
+        <div className="flex items-center gap-2 md:gap-4">
+          <button
+            className="opacity-70 hover:opacity-100 transition p-1 hidden sm:block"
+            onClick={handlePrev}
+            title="Anterior"
+          >
+            <PrevIcon />
+          </button>
 
-            <button
-              className="bg-white rounded-full p-2 hover:scale-105 transition"
-              onClick={handlePlayPause}
-            >
-              {isPlaying ? <Pause /> : <Play />}
-            </button>
+          <button
+            className="bg-white rounded-full p-1.5 md:p-2 hover:scale-105 transition"
+            onClick={handlePlayPause}
+          >
+            {isPlaying ? <Pause /> : <Play />}
+          </button>
 
-            <button
-              className="opacity-70 hover:opacity-100 transition p-1"
-              onClick={handleNext}
-              title="Siguiente"
-            >
-              <NextIcon />
-            </button>
-          </div>
-
-          <SongControl audio={audioRef} />
-          <audio ref={audioRef} />
+          <button
+            className="opacity-70 hover:opacity-100 transition p-1 hidden sm:block"
+            onClick={handleNext}
+            title="Siguiente"
+          >
+            <NextIcon />
+          </button>
         </div>
 
+        {/* Song progress - hidden on very small screens */}
+        <div className="hidden sm:flex w-full justify-center">
+          <SongControl audio={audioRef} />
+        </div>
+        <audio ref={audioRef} />
       </div>
 
-
-      <div className="grid place-content-center">
+      {/* Volume control - hidden on mobile */}
+      <div className="flex-shrink-0">
         <VolumeControl />
       </div>
     </div>
