@@ -15,10 +15,12 @@ const genrePlaylists = [
 ];
 ---
 
-<nav class="flex flex-col flex-1 gap-2">
+<nav class="flex flex-row md:flex-col flex-1 gap-2 h-full">
   <!-- Portfolio Navigation -->
-  <div class="bg-surface rounded-lg p-2 border border-surface-lighter/20">
-    <ul>
+  <div
+    class="bg-surface rounded-lg p-1 md:p-2 border border-surface-lighter/20 flex-1 md:flex-none"
+  >
+    <ul class="flex flex-row md:flex-col justify-around md:justify-start">
       <SideMenuItem href="/">
         <HomeIcon slot="icon" />
         Inicio
@@ -39,12 +41,17 @@ const genrePlaylists = [
         <SectionIcon type="mail" slot="icon" />
         Contacto
       </SideMenuItem>
+      <!-- Mobile-only Music Link moved here for one-hand mode -->
+      <SideMenuItem href="/music" class="md:hidden">
+        <SectionIcon type="music" slot="icon" />
+        Música
+      </SideMenuItem>
     </ul>
   </div>
 
-  <!-- Music Library -->
+  <!-- Music Library (Sidebar only) -->
   <div
-    class="bg-surface rounded-lg p-2 flex-1 border border-surface-lighter/20 overflow-y-auto"
+    class="bg-surface rounded-lg p-2 flex-1 border border-surface-lighter/20 overflow-y-auto hidden md:block"
   >
     <div
       class="px-2 md:px-4 py-2 flex items-center justify-center md:justify-start gap-2"
@@ -91,7 +98,7 @@ const genrePlaylists = [
   </div>
 
   <!-- Footer metadata -->
-  <div class="px-2 md:px-4 py-2 text-center">
+  <div class="px-2 md:px-4 py-2 text-center hidden md:block">
     <span class="metadata hidden md:inline"
       >galodev@portfolio:~$ <span class="text-accent-green">ready</span></span
     >

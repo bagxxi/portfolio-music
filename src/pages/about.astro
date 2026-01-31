@@ -4,18 +4,22 @@ import { personalInfo, skillCategories } from "@/lib/portfolio";
 ---
 
 <Layout title="Sobre mí | GaloDev Portfolio">
-  <div class="relative px-8 py-12 max-w-4xl mx-auto">
+  <div class="relative px-4 md:px-8 py-12 max-w-4xl mx-auto">
     <!-- Page header -->
     <header class="mb-12">
       <span class="metadata block mb-4">// about_me.md</span>
-      <h1 class="font-display text-5xl font-bold text-text-bright mb-4">
+      <h1
+        class="font-display text-4xl md:text-5xl font-bold text-text-bright mb-4"
+      >
         Sobre <span class="text-accent-magenta">mí</span>
       </h1>
     </header>
 
     <!-- Profile Card -->
-    <section class="glass-card rounded-xl p-8 mb-12">
-      <div class="flex flex-col md:flex-row gap-8 items-start">
+    <section class="glass-card rounded-xl p-5 md:p-8 mb-12">
+      <div
+        class="flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left"
+      >
         <!-- Avatar -->
         <img
           src={personalInfo.avatar}
@@ -23,46 +27,56 @@ import { personalInfo, skillCategories } from "@/lib/portfolio";
           class="w-32 h-32 rounded-full object-cover shrink-0 border-2 border-accent-cyan/30 hover:border-accent-magenta/50 transition-all"
         />
 
-        <div class="flex-1">
-          <div class="flex items-center gap-3 mb-3">
-            <h2 class="font-display text-3xl font-bold text-text-bright">
+        <div class="flex-1 w-full">
+          <div class="flex flex-col md:flex-row items-center gap-3 mb-3">
+            <h2
+              class="font-display text-2xl md:text-3xl font-bold text-text-bright"
+            >
               {personalInfo.displayName}
             </h2>
             <span class="badge text-accent-green">{personalInfo.status}</span>
           </div>
 
-          <p class="text-xl text-accent-cyan font-display mb-4">
+          <p class="text-lg md:text-xl text-accent-cyan font-display mb-4">
             {personalInfo.title}
           </p>
 
-          <p class="text-text leading-relaxed mb-6">
+          <p class="text-text leading-relaxed mb-6 text-sm md:text-base">
             {personalInfo.bio}
           </p>
 
           <!-- Metadata grid -->
-          <div class="grid grid-cols-2 gap-4 text-sm">
-            <div class="flex items-center gap-2">
-              <span class="text-accent-cyan">📍</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div
+              class="flex items-center gap-2 justify-center md:justify-start"
+            >
+              <span class="text-accent-cyan shrink-0">📍</span>
               <span class="text-text-muted">Ubicación:</span>
-              <span class="text-text">{personalInfo.location}</span>
+              <span class="text-text truncate">{personalInfo.location}</span>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="text-accent-cyan">🕐</span>
-              <span class="text-text-muted">Zona horaria:</span>
-              <span class="text-text">{personalInfo.timezone}</span>
+            <div
+              class="flex items-center gap-2 justify-center md:justify-start"
+            >
+              <span class="text-accent-cyan shrink-0">🕐</span>
+              <span class="text-text-muted">Zona:</span>
+              <span class="text-text truncate">{personalInfo.timezone}</span>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="text-accent-cyan">✉️</span>
+            <div
+              class="flex items-center gap-2 justify-center md:justify-start"
+            >
+              <span class="text-accent-cyan shrink-0">✉️</span>
               <span class="text-text-muted">Email:</span>
               <a
                 href={`mailto:${personalInfo.email}`}
-                class="text-accent-magenta hover:underline"
+                class="text-accent-magenta hover:underline truncate"
               >
                 {personalInfo.email}
               </a>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="text-accent-cyan">💻</span>
+            <div
+              class="flex items-center gap-2 justify-center md:justify-start"
+            >
+              <span class="text-accent-cyan shrink-0">💻</span>
               <span class="text-text-muted">GitHub:</span>
               <a
                 href={personalInfo.github}
@@ -81,43 +95,51 @@ import { personalInfo, skillCategories } from "@/lib/portfolio";
     <!-- Quick Stats -->
     <section class="mb-12">
       <h3
-        class="font-display text-2xl font-bold text-text-bright mb-6 flex items-center gap-2"
+        class="font-display text-xl md:text-2xl font-bold text-text-bright mb-6 flex items-center justify-center md:justify-start gap-2"
       >
         <span class="text-accent-cyan">$</span> stats --quick
       </h3>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div
           class="glass-card rounded-lg p-4 text-center hover:border-accent-cyan/50 transition-colors"
         >
-          <div class="text-3xl font-display font-bold text-accent-cyan mb-1">
+          <div
+            class="text-2xl md:text-3xl font-display font-bold text-accent-cyan mb-1"
+          >
             21+
           </div>
-          <div class="text-sm text-text-muted">Repositorios</div>
+          <div class="text-xs md:text-sm text-text-muted">Repositorios</div>
         </div>
         <div
           class="glass-card rounded-lg p-4 text-center hover:border-accent-magenta/50 transition-colors"
         >
-          <div class="text-3xl font-display font-bold text-accent-magenta mb-1">
+          <div
+            class="text-2xl md:text-3xl font-display font-bold text-accent-magenta mb-1"
+          >
             {skillCategories.flatMap((c) => c.skills).length}+
           </div>
-          <div class="text-sm text-text-muted">Tecnologías</div>
+          <div class="text-xs md:text-sm text-text-muted">Tecnologías</div>
         </div>
         <div
           class="glass-card rounded-lg p-4 text-center hover:border-accent-green/50 transition-colors"
         >
-          <div class="text-3xl font-display font-bold text-accent-green mb-1">
+          <div
+            class="text-2xl md:text-3xl font-display font-bold text-accent-green mb-1"
+          >
             Pro
           </div>
-          <div class="text-sm text-text-muted">GitHub Status</div>
+          <div class="text-xs md:text-sm text-text-muted">GitHub Status</div>
         </div>
         <div
           class="glass-card rounded-lg p-4 text-center hover:border-accent-orange/50 transition-colors"
         >
-          <div class="text-3xl font-display font-bold text-accent-orange mb-1">
+          <div
+            class="text-2xl md:text-3xl font-display font-bold text-accent-orange mb-1"
+          >
             2+
           </div>
-          <div class="text-sm text-text-muted">Años Dev</div>
+          <div class="text-xs md:text-sm text-text-muted">Años Dev</div>
         </div>
       </div>
     </section>

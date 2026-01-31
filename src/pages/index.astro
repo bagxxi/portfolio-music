@@ -22,32 +22,32 @@ const featuredProjects = projects.filter((p) => p.featured).slice(0, 3);
 
         <!-- Main heading -->
         <h1
-          class="font-display text-6xl font-bold text-text-bright leading-tight"
+          class="font-display text-4xl md:text-6xl font-bold text-text-bright leading-tight"
         >
           Hola, soy <span class="text-accent-magenta"
             >{personalInfo.displayName}</span
           >
         </h1>
 
-        <p class="text-2xl text-text-muted font-display">
+        <p class="text-xl md:text-2xl text-text-muted font-display">
           {personalInfo.title}
         </p>
 
-        <p class="text-lg text-text max-w-2xl">
+        <p class="text-base md:text-lg text-text max-w-2xl">
           {personalInfo.bio}
         </p>
 
         <!-- Quick navigation -->
-        <div class="flex gap-4 mt-4">
+        <div class="flex flex-wrap gap-4 mt-4">
           <a
             href="/projects"
-            class="px-6 py-3 bg-accent-cyan text-void font-semibold rounded-full hover:bg-accent-green transition-all hover:scale-105"
+            class="px-6 py-3 bg-accent-cyan text-void font-semibold rounded-full hover:bg-accent-green transition-all hover:scale-105 flex items-center justify-center min-w-[160px]"
           >
             Ver Proyectos
           </a>
           <a
             href="/contact"
-            class="px-6 py-3 border border-accent-cyan/50 text-accent-cyan rounded-full hover:bg-accent-cyan/10 transition-all"
+            class="px-6 py-3 border border-accent-cyan/50 text-accent-cyan rounded-full hover:bg-accent-cyan/10 transition-all flex items-center justify-center min-w-[160px]"
           >
             Contacto
           </a>

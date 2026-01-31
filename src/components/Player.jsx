@@ -232,9 +232,9 @@ export function Player() {
       {/* Player controls - centered and flexible */}
       <div className="flex flex-col items-center justify-center flex-1 min-w-0">
         {/* Playback controls with prev/next */}
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-3 md:gap-4">
           <button
-            className="opacity-70 hover:opacity-100 transition p-1 hidden sm:block"
+            className="opacity-70 hover:opacity-100 transition p-1"
             onClick={handlePrev}
             title="Anterior"
           >
@@ -242,14 +242,14 @@ export function Player() {
           </button>
 
           <button
-            className="bg-white rounded-full p-1.5 md:p-2 hover:scale-105 transition"
+            className="bg-white rounded-full p-2 md:p-2 hover:scale-105 transition"
             onClick={handlePlayPause}
           >
             {isPlaying ? <Pause /> : <Play />}
           </button>
 
           <button
-            className="opacity-70 hover:opacity-100 transition p-1 hidden sm:block"
+            className="opacity-70 hover:opacity-100 transition p-1"
             onClick={handleNext}
             title="Siguiente"
           >
