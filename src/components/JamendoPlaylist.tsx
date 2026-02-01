@@ -224,7 +224,7 @@ export function JamendoPlaylist({ tag, title, description, accentColor }: Jamend
                     <a
                         href="https://www.jamendo.com"
                         target="_blank"
-                        rel="noopener"
+                        rel="noopener noreferrer"
                         className="text-accent-cyan hover:underline"
                     >
                         Jamendo

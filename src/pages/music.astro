@@ -4,12 +4,48 @@ import { MusicSearch } from "@/components/MusicSearch";
 
 // Genre playlists configuration
 const genrePlaylists = [
-  { id: 'metal', title: 'Metal', emoji: '🎸', color: '#f7768e', description: 'Heavy riffs y power' },
-  { id: 'rock', title: 'Rock', emoji: '🔥', color: '#ff9e64', description: 'Rock clásico y moderno' },
-  { id: 'hiphop', title: 'Hip-Hop', emoji: '🎤', color: '#9ece6a', description: 'Beats underground' },
-  { id: 'electronic', title: 'Electrónica', emoji: '🎧', color: '#7dcfff', description: 'EDM y synth' },
-  { id: 'jazz', title: 'Jazz', emoji: '🎷', color: '#bb9af7', description: 'Jazz contemporáneo' },
-  { id: 'classical', title: 'Clásica', emoji: '🎻', color: '#9d7cd8', description: 'Orquestal' },
+  {
+    id: "metal",
+    title: "Metal",
+    emoji: "🎸",
+    color: "#f7768e",
+    description: "Heavy riffs y power",
+  },
+  {
+    id: "rock",
+    title: "Rock",
+    emoji: "🔥",
+    color: "#ff9e64",
+    description: "Rock clásico y moderno",
+  },
+  {
+    id: "hiphop",
+    title: "Hip-Hop",
+    emoji: "🎤",
+    color: "#9ece6a",
+    description: "Beats underground",
+  },
+  {
+    id: "electronic",
+    title: "Electrónica",
+    emoji: "🎧",
+    color: "#7dcfff",
+    description: "EDM y synth",
+  },
+  {
+    id: "jazz",
+    title: "Jazz",
+    emoji: "🎷",
+    color: "#bb9af7",
+    description: "Jazz contemporáneo",
+  },
+  {
+    id: "classical",
+    title: "Clásica",
+    emoji: "🎻",
+    color: "#9d7cd8",
+    description: "Orquestal",
+  },
 ];
 ---
 
@@ -28,37 +64,43 @@ const genrePlaylists = [
 
     <!-- Genre Playlists Grid -->
     <section class="mb-12">
-      <h2 class="font-display text-2xl font-bold text-text-bright mb-6 flex items-center gap-2">
+      <h2
+        class="font-display text-2xl font-bold text-text-bright mb-6 flex items-center gap-2"
+      >
         <span class="text-accent-magenta">★</span> Playlists por Género
       </h2>
-      
+
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        {genrePlaylists.map((genre) => (
-          <a 
-            href={`/genre/${genre.id}`}
-            class="group relative overflow-hidden rounded-xl p-4 transition-all hover:scale-105 hover:shadow-xl"
-            style={`background: linear-gradient(135deg, ${genre.color}40, ${genre.color}10); border: 1px solid ${genre.color}30;`}
-          >
-            <div class="text-4xl mb-3">{genre.emoji}</div>
-            <h3 class="font-display font-bold text-text-bright group-hover:text-white transition-colors">
-              {genre.title}
-            </h3>
-            <p class="text-xs text-text-muted mt-1">{genre.description}</p>
-            
-            <div 
-              class="absolute bottom-2 right-2 w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-void text-xs"
-              style={`background: ${genre.color};`}
+        {
+          genrePlaylists.map((genre) => (
+            <a
+              href={`/genre/${genre.id}`}
+              class="group relative overflow-hidden rounded-xl p-4 transition-all hover:scale-105 hover:shadow-xl"
+              style={`background: linear-gradient(135deg, ${genre.color}40, ${genre.color}10); border: 1px solid ${genre.color}30;`}
             >
-              ▶
-            </div>
-          </a>
-        ))}
+              <div class="text-4xl mb-3">{genre.emoji}</div>
+              <h3 class="font-display font-bold text-text-bright group-hover:text-white transition-colors">
+                {genre.title}
+              </h3>
+              <p class="text-xs text-text-muted mt-1">{genre.description}</p>
+
+              <div
+                class="absolute bottom-2 right-2 w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-void text-xs"
+                style={`background: ${genre.color};`}
+              >
+                ▶
+              </div>
+            </a>
+          ))
+        }
       </div>
     </section>
 
     <!-- Search Section -->
     <section class="mb-12 glass-card rounded-xl p-6">
-      <h2 class="font-display text-2xl font-bold text-text-bright mb-6 flex items-center gap-2">
+      <h2
+        class="font-display text-2xl font-bold text-text-bright mb-6 flex items-center gap-2"
+      >
         <span class="text-accent-cyan">🔍</span> Buscar Canciones
       </h2>
       <MusicSearch client:load />
@@ -67,19 +109,25 @@ const genrePlaylists = [
     <!-- Info Card -->
     <section class="glass-card rounded-xl p-6">
       <div class="flex items-center gap-4">
-        <div class="w-12 h-12 bg-accent-cyan/20 rounded-full flex items-center justify-center text-2xl">
+        <div
+          class="w-12 h-12 bg-accent-cyan/20 rounded-full flex items-center justify-center text-2xl"
+        >
           🎵
         </div>
         <div>
-          <h3 class="font-display font-bold text-text-bright">Música con Jamendo</h3>
+          <h3 class="font-display font-bold text-text-bright">
+            Música con Jamendo
+          </h3>
           <p class="text-sm text-text-muted">
-            Todas las canciones son <span class="text-accent-green">Creative Commons</span> - libres para escuchar y compartir.
+            Todas las canciones son <span class="text-accent-green"
+              >Creative Commons</span
+            > - libres para escuchar y compartir.
           </p>
         </div>
-        <a 
-          href="https://www.jamendo.com" 
-          target="_blank" 
-          rel="noopener"
+        <a
+          href="https://www.jamendo.com"
+          target="_blank"
+          rel="noopener noreferrer"
           class="ml-auto px-4 py-2 border border-accent-cyan/50 text-accent-cyan rounded-full hover:bg-accent-cyan/10 transition-all text-sm"
         >
           Jamendo.com →
@@ -88,7 +136,13 @@ const genrePlaylists = [
     </section>
 
     <!-- Background decoration -->
-    <div class="absolute top-20 right-10 w-80 h-80 bg-accent-green/5 rounded-full blur-3xl -z-10"></div>
-    <div class="absolute bottom-40 left-10 w-64 h-64 bg-accent-magenta/5 rounded-full blur-3xl -z-10"></div>
+    <div
+      class="absolute top-20 right-10 w-80 h-80 bg-accent-green/5 rounded-full blur-3xl -z-10"
+    >
+    </div>
+    <div
+      class="absolute bottom-40 left-10 w-64 h-64 bg-accent-magenta/5 rounded-full blur-3xl -z-10"
+    >
+    </div>
   </div>
 </Layout>

@@ -47,3 +47,10 @@ desktop.ini
 *.log
 .gemini/
 prompts/
+
+# Security tests (not for public repos)
+tests/
+test-results/
+playwright.config.ts
+playwright-report/
+.playwright/
